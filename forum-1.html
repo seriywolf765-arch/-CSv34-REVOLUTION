@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CSv34] REVOLUTION — форум</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hud-bar">
+  <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>
+  <div class="hud-ip" data-copy-ip="45.136.205.146:27015">45.136.205.146:27015 ⧉</div>
+</div>
+
+<header class="site">
+  <div class="brand">
+    [CSv34] <span>REVOLUTION</span>
+    <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>
+  </div>
+  <nav class="tabs">
+    <a href="index.html">Мониторинг</a>
+    <a href="donate.html">Донат</a>
+    <a href="forum.html" class="active">Форум</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="panel">
+    <div class="eyebrow">// сообщество</div>
+    <h1>Форум REVOLUTION</h1>
+    <p>Раздел для заявок на разбан и размут, а также общий чат игроков.</p>
+  </section>
+
+  <section style="margin-top:18px;">
+    <div class="panel">
+      <h2>Заявка на разбан</h2>
+      <p style="margin-bottom:14px;">Опишите ваш SteamID, дату бана и причину, по которой считаете бан несправедливым.</p>
+      <textarea placeholder="Ваш SteamID, дата бана, причина..." style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+      <a class="btn solid" style="margin-top:12px;display:inline-block;">Отправить заявку</a>
+    </div>
+
+    <div class="panel">
+      <h2>Заявка на размут</h2>
+      <p style="margin-bottom:14px;">Опишите ваш SteamID и дату, когда был выдан мут.</p>
+      <textarea placeholder="Ваш SteamID, дата мута..." style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+      <a class="btn solid" style="margin-top:12px;display:inline-block;">Отправить заявку</a>
+    </div>
+
+    <div class="panel">
+      <h2>Чат</h2>
+      <div id="chat-box" style="background:var(--panel-2);border:1px solid var(--line);border-radius:2px;min-height:160px;padding:12px;font-size:13px;color:var(--text-dim);"></div>
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <input id="chat-input" type="text" placeholder="Сообщение..." style="flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;">
+        <a class="btn solid" id="chat-send">Отправить</a>
+      </div>
+      <p style="margin-top:10px;font-size:12px;">Чат хранится только в этом браузере (демо-режим). Для общего чата всех посетителей нужен бэкенд.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · ФОРУМ СООБЩЕСТВА</footer>
+
+<script src="script.js"></script>
+<script>
+  const chatBox = document.getElementById('chat-box');
+  const chatInput = document.getElementById('chat-input');
+
+  function renderMessage(text){
+    const row = document.createElement('div');
+    row.style.marginBottom = '6px';
+    row.textContent = text;
+    chatBox.appendChild(row);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function sendMessage(){
+    const text = chatInput.value.trim();
+    if(!text) return;
+    renderMessage(text);
+    chatInput.value = '';
+  }
+
+  document.getElementById('chat-send').addEventListener('click', sendMessage);
+  chatInput.addEventListener('keydown', e=>{
+    if(e.key === 'Enter') sendMessage();
+  });
+</script>
+</body>
+</html>

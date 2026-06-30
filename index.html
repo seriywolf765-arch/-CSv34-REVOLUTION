@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CSv34] REVOLUTION — мониторинг сервера</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hud-bar">
+  <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>
+  <div class="hud-ip" data-copy-ip="45.136.205.146:27015" title="Нажмите, чтобы скопировать">
+    45.136.205.146:27015 ⧉
+  </div>
+</div>
+
+<header class="site">
+  <div class="brand">
+    [CSv34] <span>REVOLUTION</span>
+    <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>
+  </div>
+  <nav class="tabs">
+    <a href="index.html" class="active">Мониторинг</a>
+    <a href="donate.html">Донат</a>
+    <a href="forum.html">Форум</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="panel">
+    <div class="eyebrow">// статус сервера</div>
+    <h1>Онлайн в реальном времени</h1>
+    <p>Данные обновляются автоматически. Если за столом пусто — самое время это исправить.</p>
+
+    <hr class="rule">
+
+    <img class="status-banner"
+         data-src="https://cache.gametracker.com/server_info/45.136.205.146:27015/b_460_60_1.png"
+         src="https://cache.gametracker.com/server_info/45.136.205.146:27015/b_460_60_1.png"
+         alt="Статус сервера REVOLUTION — игроки и карта"
+         style="width:100%;max-width:460px;border:1px solid var(--line);border-radius:2px;">
+
+    <p style="margin-top:14px;font-size:12px;">
+      Баннер предоставлен GameTracker и обновляется каждые 1–2 минуты — этого достаточно,
+      чтобы видеть актуальный онлайн и текущую карту без задержек в днях/часах.
+    </p>
+
+    <div style="margin-top:18px;">
+      <a class="btn solid" href="steam://connect/45.136.205.146:27015">Подключиться через Steam</a>
+      <a class="btn" data-copy-ip="45.136.205.146:27015" href="javascript:void(0)" style="margin-left:8px;">Скопировать IP</a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Текущая карта</h2>
+    <p>Карта определяется автоматически по данным баннера выше. Голосование за следующую карту — в игре через меню выбора (ratemap / nominate), либо в разделе форума «Карты».</p>
+    <div id="map-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px;">
+      <div class="mono" style="background:var(--panel-2);border:1px solid var(--line);padding:14px;text-align:center;font-size:12px;color:var(--text-dim);">de_dust2</div>
+      <div class="mono" style="background:var(--panel-2);border:1px solid var(--line);padding:14px;text-align:center;font-size:12px;color:var(--text-dim);">de_inferno</div>
+      <div class="mono" style="background:var(--panel-2);border:1px solid var(--line);padding:14px;text-align:center;font-size:12px;color:var(--text-dim);">de_mirage</div>
+      <div class="mono" style="background:var(--panel-2);border:1px solid var(--line);padding:14px;text-align:center;font-size:12px;color:var(--text-dim);">cs_office</div>
+    </div>
+    <p style="margin-top:12px;font-size:12px;">Карта, активная прямо сейчас, подсвечена в баннере статуса выше.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Как подключиться</h2>
+    <ol style="color:var(--text-dim);padding-left:18px;">
+      <li>Откройте консоль в игре (клавиша <span class="mono">~</span>).</li>
+      <li>Введите команду: <span class="mono" style="color:var(--amber);">connect 45.136.205.146:27015</span></li>
+      <li>Нажмите Enter — готово, вы на сервере REVOLUTION.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · МОНИТОРИНГ ОБНОВЛЯЕТСЯ АВТОМАТИЧЕСКИ</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
