@@ -20,6 +20,7 @@
 <a href="index.html">Мониторинг</a>
 <a href="donate.html">Донат</a>
 <a href="forum.html" class="active">Форум</a>
+<a href="rules.html">Правила</a>
 </nav>
 </header>
 <main>
@@ -30,7 +31,7 @@
 <div id="user-info" style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);"></div>
 <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;">
 <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;box-shadow:0 0 6px var(--green);vertical-align:middle;"></span>
-На сайте сейчас: <span id="online-count" style="color:var(--amber);">...</span> чел.
+Сейчас на сайте: <span id="online-list" style="color:var(--amber);">...</span>
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
 <a class="btn solid" href="https://vk.me/join/Od2ggXZGyRU1Y89ZhkTa/ZfRwgLoRf3Fcl4=" target="_blank" rel="noopener"
@@ -122,29 +123,47 @@ appId: "1:886122429926:web:56840c0a678c10c003ea27"
 const db = getDatabase(app);
 
 // ==== TELEGRAM УВЕДОМЛЕНИЯ ====
+// Замените на свои значения из BotFather и getUpdates
 const TG_BOT_TOKEN = '8748498534:AAH6w7Cm9XxA2UV0Fr--4VU0pVS0qpxwg84';
 const TG_CHAT_ID = '1708698694';
 
-function notifyTelegram(title, text) {
+// ВАЖНО: теперь любая ошибка Telegram API логируется в консоль (F12),
+// а не проглатывается молча — так будет видно, что именно идёт не так
+// для размута/жалоб/доната, если это повторится.
+async function notifyTelegram(title, text) {
   const message = `🔔 ${title}\n\nНик: ${MY_NICK}\nSteamID: ${MY_STEAM}\n\n${text}`;
-  fetch(`https://api.telegram.org/bot${8748498534:AAH6w7Cm9XxA2UV0Fr--4VU0pVS0qpxwg84}/sendMessage`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ chat_id: 1708698694, text: message })
-  }).catch(err => console.error('Telegram notify error:', err));
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ chat_id: TG_CHAT_ID, text: message })
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      console.error(`Telegram notify FAILED for "${title}":`, data.description || data);
+    } else {
+      console.log(`Telegram notify OK for "${title}"`);
+    }
+  } catch (err) {
+    console.error(`Telegram notify network error for "${title}":`, err);
+  }
 }
 
-// СЧЁТЧИК ОНЛАЙНА
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// СЧЁТЧИК ОНЛАЙНА / СПИСОК НИКОВ
 const myId = 'u_' + Math.random().toString(36).slice(2);
 const presenceRef = ref(db, 'presence/' + myId);
 set(presenceRef, { nick: MY_NICK, t: Date.now() });
 onDisconnect(presenceRef).remove();
 
 onValue(ref(db, 'presence'), snap => {
-document.getElementById('online-count').textContent = snap.exists() ? Object.keys(snap.val()).length : 0;
+  const el = document.getElementById('online-list');
+  if (!snap.exists()) { el.textContent = 'никого нет'; return; }
+  const names = Object.values(snap.val())
+    .map(u => esc(u.nick || 'Аноним'));
+  el.textContent = names.length ? names.join(', ') : 'никого нет';
 });
-
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // ЧАТ
 const chatBox = document.getElementById('chat-box');
