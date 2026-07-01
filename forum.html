@@ -122,16 +122,15 @@ appId: "1:886122429926:web:56840c0a678c10c003ea27"
 const db = getDatabase(app);
 
 // ==== TELEGRAM УВЕДОМЛЕНИЯ ====
-// Замените на свои значения из BotFather и getUpdates
 const TG_BOT_TOKEN = '8748498534:AAH6w7Cm9XxA2UV0Fr--4VU0pVS0qpxwg84';
 const TG_CHAT_ID = '1708698694';
 
 function notifyTelegram(title, text) {
   const message = `🔔 ${title}\n\nНик: ${MY_NICK}\nSteamID: ${MY_STEAM}\n\n${text}`;
-  fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+  fetch(`https://api.telegram.org/bot${8748498534:AAH6w7Cm9XxA2UV0Fr--4VU0pVS0qpxwg84}/sendMessage`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ chat_id: TG_CHAT_ID, text: message })
+    body: JSON.stringify({ chat_id: 1708698694, text: message })
   }).catch(err => console.error('Telegram notify error:', err));
 }
 
