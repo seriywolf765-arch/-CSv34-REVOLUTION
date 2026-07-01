@@ -31,15 +31,15 @@
     <div class="eyebrow">// сообщество</div>
     <h1>Форум REVOLUTION</h1>
     <p>Раздел для заявок на разбан и размут, а также общий чат игроков.</p>
+    <div id="user-info" style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);"></div>
   </section>
 
   <section style="margin-top:18px;">
 
     <div class="panel">
       <h2>Заявка на разбан</h2>
-      <p style="margin-bottom:14px;">Опишите ваш SteamID, дату бана и причину, по которой считаете бан несправедливым.</p>
-      <input id="unban-steamid" type="text" placeholder="Ваш SteamID (например STEAM_0:1:12345678)"
-        style="width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;margin-bottom:10px;">
+      <p style="margin-bottom:14px;">Опишите дату бана и причину, по которой считаете бан несправедливым.</p>
+      <div id="unban-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
       <textarea id="unban-text" placeholder="Дата бана и причина..."
         style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
       <button class="btn solid" id="unban-send" style="margin-top:12px;">Отправить заявку</button>
@@ -48,9 +48,8 @@
 
     <div class="panel">
       <h2>Заявка на размут</h2>
-      <p style="margin-bottom:14px;">Опишите ваш SteamID и дату, когда был выдан мут.</p>
-      <input id="unmute-steamid" type="text" placeholder="Ваш SteamID (например STEAM_0:1:12345678)"
-        style="width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;margin-bottom:10px;">
+      <p style="margin-bottom:14px;">Опишите дату мута и причину.</p>
+      <div id="unmute-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
       <textarea id="unmute-text" placeholder="Дата мута и причина..."
         style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
       <button class="btn solid" id="unmute-send" style="margin-top:12px;">Отправить заявку</button>
@@ -61,8 +60,6 @@
       <h2>Чат</h2>
       <div id="chat-box" style="background:var(--panel-2);border:1px solid var(--line);border-radius:2px;min-height:160px;max-height:300px;overflow-y:auto;padding:12px;font-size:13px;color:var(--text-dim);"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
-        <input id="chat-nick" type="text" placeholder="Ваш ник"
-          style="width:130px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;">
         <input id="chat-input" type="text" placeholder="Сообщение..."
           style="flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;">
         <button class="btn solid" id="chat-send">Отправить</button>
@@ -80,6 +77,17 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  // Проверка авторизации
+  if (!sessionStorage.getItem('rev_auth')) location.href = 'login.html';
+
+  const MY_NICK  = sessionStorage.getItem('rev_nick')  || 'Аноним';
+  const MY_STEAM = sessionStorage.getItem('rev_steam') || '';
+
+  // Показываем кто вошёл
+  document.getElementById('user-info').textContent = `Вы вошли как: ${MY_NICK} · ${MY_STEAM}`;
+  document.getElementById('unban-user').textContent  = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
+  document.getElementById('unmute-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
 
   const app = initializeApp({
     apiKey: "AIzaSyCxkwo9pgBoiZGFdR2gMQqfqPhlPFp4_5Y",
@@ -104,17 +112,16 @@
       const t = m.time ? new Date(m.time).toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'}) : '';
       const row = document.createElement('div');
       row.style.marginBottom='6px';
-      row.innerHTML=`<span style="color:var(--text-dim);font-size:11px;">[${t}]</span> <span style="color:var(--amber);font-weight:600;">${esc(m.nick||'Аноним')}</span>: ${esc(m.text)}`;
+      row.innerHTML=`<span style="color:var(--text-dim);font-size:11px;">[${t}]</span> <span style="color:var(--amber);font-weight:600;">${esc(m.nick)}</span> <span style="color:var(--text-dim);font-size:11px;">(${esc(m.steamid)})</span>: ${esc(m.text)}`;
       chatBox.appendChild(row);
     });
     chatBox.scrollTop = chatBox.scrollHeight;
   });
 
   function sendChat(){
-    const nick = document.getElementById('chat-nick').value.trim()||'Аноним';
     const text = document.getElementById('chat-input').value.trim();
     if(!text) return;
-    push(ref(db,'chat'),{nick,text,time:Date.now()});
+    push(ref(db,'chat'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
     document.getElementById('chat-input').value='';
   }
   document.getElementById('chat-send').addEventListener('click', sendChat);
@@ -122,11 +129,9 @@
 
   // РАЗБАН
   document.getElementById('unban-send').addEventListener('click', ()=>{
-    const steamid = document.getElementById('unban-steamid').value.trim();
     const text = document.getElementById('unban-text').value.trim();
-    if(!steamid||!text){ alert('Заполните все поля'); return; }
-    push(ref(db,'unban'),{steamid,text,time:Date.now()});
-    document.getElementById('unban-steamid').value='';
+    if(!text){ alert('Заполните поле'); return; }
+    push(ref(db,'unban'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
     document.getElementById('unban-text').value='';
     const s=document.getElementById('unban-status');
     s.style.display='block';
@@ -135,17 +140,14 @@
 
   // РАЗМУТ
   document.getElementById('unmute-send').addEventListener('click', ()=>{
-    const steamid = document.getElementById('unmute-steamid').value.trim();
     const text = document.getElementById('unmute-text').value.trim();
-    if(!steamid||!text){ alert('Заполните все поля'); return; }
-    push(ref(db,'unmute'),{steamid,text,time:Date.now()});
-    document.getElementById('unmute-steamid').value='';
+    if(!text){ alert('Заполните поле'); return; }
+    push(ref(db,'unmute'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
     document.getElementById('unmute-text').value='';
     const s=document.getElementById('unmute-status');
     s.style.display='block';
     setTimeout(()=>s.style.display='none',4000);
   });
 </script>
-
 </body>
 </html>
