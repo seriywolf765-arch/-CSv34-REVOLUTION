@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="style.css">  
 </head>  
 <body>  
-  
+
 <div class="hud-bar">  
   <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>  
   <div class="hud-ip" data-copy-ip="45.136.205.146:27015">45.136.205.146:27015 ⧉</div>  
 </div>  
-  
+
 <header class="site">  
   <div class="brand">  
     [CSv34] <span>REVOLUTION</span>  
@@ -25,9 +25,9 @@
 <a href="rules.html">Правила</a>
 </nav>  
 </header>  
-  
+
 <main>  
-  
+
   <section class="panel">  
     <div class="eyebrow">// сообщество</div>  
     <h1>Форум REVOLUTION</h1>  
@@ -35,7 +35,7 @@
     <div id="user-info" style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);"></div>  
     <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;">  
       <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;box-shadow:0 0 6px var(--green);vertical-align:middle;"></span>  
-      На сайте сейчас: <span id="online-count" style="color:var(--amber);">...</span> чел.  
+      На сайте сейчас: <span id="online-count" style="color:var(--amber);">...</span>  
     </div>  
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">  
       <a class="btn solid" href="https://vk.me/join/Od2ggXZGyRU1Y89ZhkTa/ZfRwgLoRf3Fcl4=" target="_blank" rel="noopener"  
@@ -44,9 +44,9 @@
         style="background:#2aabee;border-color:#2aabee;color:#fff;">Telegram</a>  
     </div>  
   </section>  
-  
+
   <section style="margin-top:18px;">  
-  
+
     <div class="panel">  
       <h2>Заявка на разбан</h2>  
       <p style="margin-bottom:14px;">Опишите дату бана и причину, по которой считаете бан несправедливым.</p>  
@@ -56,7 +56,7 @@
       <button class="btn solid" id="unban-send" style="margin-top:12px;">Отправить заявку</button>  
       <div id="unban-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>  
     </div>  
-  
+
     <div class="panel">  
       <h2>Заявка на размут</h2>  
       <p style="margin-bottom:14px;">Опишите дату мута и причину.</p>  
@@ -66,7 +66,7 @@
       <button class="btn solid" id="unmute-send" style="margin-top:12px;">Отправить заявку</button>  
       <div id="unmute-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>  
     </div>  
-  
+
     <div class="panel">  
       <h2>Жалобы на администрацию</h2>  
       <p style="margin-bottom:14px;">Опишите ситуацию — на кого из администрации жалоба, что произошло и когда.</p>  
@@ -76,7 +76,7 @@
       <button class="btn solid" id="admin-send" style="margin-top:12px;">Отправить жалобу</button>  
       <div id="admin-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Жалоба отправлена! Старший администратор рассмотрит её в ближайшее время.</div>  
     </div>  
-  
+
     <div class="panel">  
       <h2>Поддержка по донату</h2>  
       <p style="margin-bottom:14px;">Оплатили услугу, но она не была активирована? Опишите проблему.</p>  
@@ -86,7 +86,7 @@
       <button class="btn solid" id="donate-send" style="margin-top:12px;">Отправить заявку</button>  
       <div id="donate-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация свяжется с вами в ближайшее время.</div>  
     </div>  
-  
+
     <div class="panel">  
       <h2>Чат</h2>  
       <div id="chat-box" style="background:var(--panel-2);border:1px solid var(--line);border-radius:2px;min-height:160px;max-height:300px;overflow-y:auto;padding:12px;font-size:13px;color:var(--text-dim);"></div>  
@@ -96,30 +96,30 @@
         <button class="btn solid" id="chat-send">Отправить</button>  
       </div>  
     </div>  
-  
+
   </section>  
-  
+
 </main>  
-  
+
 <footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · ФОРУМ СООБЩЕСТВА</footer>  
-  
+
 <script src="script.js"></script>  
-  
+
 <script type="module">  
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";  
   import { getDatabase, ref, push, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";  
-  
+
   if (!localStorage.getItem('rev_auth')) location.href = 'login.html';  
-  
+
   const MY_NICK  = localStorage.getItem('rev_nick')  || 'Аноним';  
   const MY_STEAM = localStorage.getItem('rev_steam') || '';  
-  
+
   document.getElementById('user-info').textContent  = `Вы вошли как: ${MY_NICK} · ${MY_STEAM}`;  
   document.getElementById('unban-user').textContent  = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
   document.getElementById('unmute-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
   document.getElementById('donate-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
   document.getElementById('admin-user').textContent  = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
-  
+
   const app = initializeApp({  
     apiKey: "AIzaSyCxkwo9pgBoiZGFdR2gMQqfqPhlPFp4_5Y",  
     authDomain: "csv34-revolution-6127b.firebaseapp.com",  
@@ -130,18 +130,21 @@
     appId: "1:886122429926:web:56840c0a678c10c003ea27"  
   });  
   const db = getDatabase(app);  
-  
-  // СЧЁТЧИК ОНЛАЙНА  
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }  
+
+  // СЧЁТЧИК ОНЛАЙНА — теперь список ников вместо числа  
   const myId = 'u_' + Math.random().toString(36).slice(2);  
   const presenceRef = ref(db, 'presence/' + myId);  
   set(presenceRef, { nick: MY_NICK, t: Date.now() });  
   onDisconnect(presenceRef).remove();  
   onValue(ref(db, 'presence'), snap => {  
-    document.getElementById('online-count').textContent = snap.exists() ? Object.keys(snap.val()).length : 0;  
+    const el = document.getElementById('online-count');  
+    if (!snap.exists()) { el.textContent = 'никого нет'; return; }  
+    const nicks = [...new Set(Object.values(snap.val()).map(u => u.nick))].map(esc);  
+    el.textContent = nicks.join(', ');  
   });  
-  
-  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }  
-  
+
   // ЧАТ  
   const chatBox = document.getElementById('chat-box');  
   onValue(ref(db,'chat'), snap => {  
@@ -157,7 +160,7 @@
     });  
     chatBox.scrollTop = chatBox.scrollHeight;  
   });  
-  
+
   function sendChat(){  
     const text = document.getElementById('chat-input').value.trim();  
     if(!text) return;  
@@ -166,7 +169,7 @@
   }  
   document.getElementById('chat-send').addEventListener('click', sendChat);  
   document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });  
-  
+
   // РАЗБАН  
   document.getElementById('unban-send').addEventListener('click', ()=>{  
     const text = document.getElementById('unban-text').value.trim();  
@@ -176,7 +179,7 @@
     const s=document.getElementById('unban-status');  
     s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
   });  
-  
+
   // РАЗМУТ  
   document.getElementById('unmute-send').addEventListener('click', ()=>{  
     const text = document.getElementById('unmute-text').value.trim();  
@@ -186,7 +189,7 @@
     const s=document.getElementById('unmute-status');  
     s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
   });  
-  
+
   // ПОДДЕРЖКА ПО ДОНАТУ  
   document.getElementById('donate-send').addEventListener('click', ()=>{  
     const text = document.getElementById('donate-text').value.trim();  
@@ -196,7 +199,7 @@
     const s=document.getElementById('donate-status');  
     s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
   });  
-  
+
   // ЖАЛОБЫ НА АДМИНИСТРАЦИЮ  
   document.getElementById('admin-send').addEventListener('click', ()=>{  
     const text = document.getElementById('admin-text').value.trim();  
