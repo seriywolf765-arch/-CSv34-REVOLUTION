@@ -19,9 +19,9 @@
     <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>  
   </div>  
   <nav class="tabs">
-<a href="index.html" class="active">Мониторинг</a>
+<a href="index.html">Мониторинг</a>
 <a href="donate.html">Донат</a>
-<a href="forum.html">Форум</a>
+<a href="forum.html" class="active">Форум</a>
 <a href="rules.html">Правила</a>
 </nav>  
 </header>  
@@ -133,7 +133,7 @@
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }  
 
-  // СЧЁТЧИК ОНЛАЙНА — теперь список ников вместо числа  
+  // СЧЁТЧИК ОНЛАЙНА — список ников вместо числа  
   const myId = 'u_' + Math.random().toString(36).slice(2);  
   const presenceRef = ref(db, 'presence/' + myId);  
   set(presenceRef, { nick: MY_NICK, t: Date.now() });  
