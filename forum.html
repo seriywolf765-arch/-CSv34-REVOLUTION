@@ -79,10 +79,10 @@
   import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   // Проверка авторизации
-  if (!sessionStorage.getItem('rev_auth')) location.href = 'login.html';
+  if (!localStorage.getItem('rev_auth')) location.href = 'login.html';
 
-  const MY_NICK  = sessionStorage.getItem('rev_nick')  || 'Аноним';
-  const MY_STEAM = sessionStorage.getItem('rev_steam') || '';
+  const MY_NICK  = localStorage.getItem('rev_nick')  || 'Аноним';
+  const MY_STEAM = localStorage.getItem('rev_steam') || '';
 
   // Показываем кто вошёл
   document.getElementById('user-info').textContent = `Вы вошли как: ${MY_NICK} · ${MY_STEAM}`;
