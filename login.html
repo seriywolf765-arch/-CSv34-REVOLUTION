@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CSv34] REVOLUTION — вход</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { display:flex; flex-direction:column; min-height:100vh; }
+  .login-wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .login-box { background:var(--panel); border:1px solid var(--line); border-radius:2px; padding:36px 28px; width:100%; max-width:420px; }
+  .login-box h1 { font-size:24px; margin-bottom:4px; }
+  .login-box p  { font-size:13px; margin-bottom:24px; }
+  .field { margin-bottom:14px; }
+  .field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim); margin-bottom:6px; }
+  .field input { width:100%; background:var(--panel-2); border:1px solid var(--line); border-radius:2px; color:var(--text); padding:11px 12px; font-family:'Inter',sans-serif; font-size:14px; outline:none; transition:.15s; }
+  .field input:focus { border-color:var(--amber); }
+  .login-btn { width:100%; margin-top:8px; padding:13px; font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:.08em; text-transform:uppercase; background:var(--amber); color:#14160f; border:none; border-radius:2px; cursor:pointer; transition:.15s; }
+  .login-btn:hover { background:#ffb24d; }
+  .login-btn:disabled { opacity:.5; cursor:default; }
+  .err { margin-top:12px; font-size:13px; color:var(--red); display:none; }
+  .hint { margin-top:16px; font-size:12px; color:var(--text-dim); line-height:1.6; }
+  .hint span { color:var(--amber); font-family:'JetBrains Mono',monospace; }
+</style>
+</head>
+<body>
+
+<div class="hud-bar">
+  <div><span class="dot"></span>СЕРВЕР В СЕТИ · 45.136.205.146:27015</div>
+</div>
+
+<div class="login-wrap">
+  <div class="login-box">
+    <div class="eyebrow">// авторизация</div>
+    <h1>[CSv34] <span style="color:var(--amber)">REVOLUTION</span></h1>
+    <p>Введите ваши данные для входа на сайт</p>
+
+    <div class="field">
+      <label>Никнейм</label>
+      <input id="inp-nick" type="text" placeholder="Ваш ник в игре">
+    </div>
+    <div class="field">
+      <label>SteamID</label>
+      <input id="inp-steam" type="text" placeholder="STEAM_0:1:12345678">
+    </div>
+
+    <button class="login-btn" id="login-btn">Войти</button>
+    <div class="err" id="err-msg">Заполните оба поля</div>
+
+    <div class="hint">
+      SteamID можно узнать в игре через консоль командой
+      <span>status</span> — строка рядом с вашим ником.
+    </div>
+  </div>
+</div>
+
+<footer>[CSV34] REVOLUTION · COUNTER-STRIKE SOURCE ENGINE V34</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const app = initializeApp({
+    apiKey: "AIzaSyCxkwo9pgBoiZGFdR2gMQqfqPhlPFp4_5Y",
+    authDomain: "csv34-revolution-6127b.firebaseapp.com",
+    databaseURL: "https://csv34-revolution-6127b-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "csv34-revolution-6127b",
+    storageBucket: "csv34-revolution-6127b.firebasestorage.app",
+    messagingSenderId: "886122429926",
+    appId: "1:886122429926:web:56840c0a678c10c003ea27"
+  });
+  const db = getDatabase(app);
+
+  if (sessionStorage.getItem('rev_auth')) location.href = 'index.html';
+
+  const btn   = document.getElementById('login-btn');
+  const err   = document.getElementById('err-msg');
+  const nick  = document.getElementById('inp-nick');
+  const steam = document.getElementById('inp-steam');
+
+  btn.addEventListener('click', async () => {
+    const n = nick.value.trim();
+    const s = steam.value.trim();
+    if (!n || !s) { err.textContent = 'Заполните оба поля'; err.style.display = 'block'; return; }
+    if (n.length < 2) { err.textContent = 'Никнейм слишком короткий'; err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Вход...';
+
+    await push(ref(db, 'users'), { nick: n, steamid: s, time: Date.now() });
+
+    sessionStorage.setItem('rev_auth', '1');
+    sessionStorage.setItem('rev_nick', n);
+    sessionStorage.setItem('rev_steam', s);
+
+    location.href = 'index.html';
+  });
+
+  [nick, steam].forEach(inp => inp.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); }));
+</script>
+</body>
+</html>
