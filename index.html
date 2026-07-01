@@ -1,57 +1,91 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[CSv34] REVOLUTION — мониторинг сервера</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="hud-bar">
-  <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>
-  <div class="hud-ip" data-copy-ip="45.136.205.146:27015">
-    45.136.205.146:27015 ⧉
-  </div>
-</div>
-
-<header class="site">
-  <div class="brand">
-    [CSv34] <span>REVOLUTION</span>
-    <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>
-  </div>
-
-  <nav class="tabs">
-    <a href="index.html" class="active">Мониторинг</a>
-    <a href="donate.html">Донат</a>
-    <a href="rules.html">Правила</a>
-    <a href="forum.html">Форум</a>
-  </nav>
-</header>
-
-<main>
-
-<section class="panel">
-  <div class="eyebrow">// статус сервера</div>
-  <h1>Онлайн в реальном времени</h1>
-
-  <hr class="rule">
-
-  <a href="http://www.myarena.ru/game-monitoring.html?game=121452" target="_blank">
-    <img src="https://img.myarena.ru/121452/560.png" style="width:100%;max-width:560px;">
-  </a>
-
-</section>
-
-</main>
-
-<footer>
-[CSV34] REVOLUTION · МОНИТОРИНГ
-</footer>
-
-<script>
-if (!localStorage.getItem('rev_auth')) location.href = 'login.html';
-</script>
-
-</body>
-</html>
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>[CSv34] REVOLUTION — мониторинг сервера</title>  
+<link rel="stylesheet" href="style.css">  
+</head>  
+<body>  
+  
+<div class="hud-bar">  
+  <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>  
+  <div class="hud-ip" data-copy-ip="45.136.205.146:27015" title="Нажмите, чтобы скопировать">  
+    45.136.205.146:27015 ⧉  
+  </div>  
+</div>  
+  
+<header class="site">  
+  <div class="brand">  
+    [CSv34] <span>REVOLUTION</span>  
+    <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>  
+  </div>  
+  <nav class="tabs">  
+    <a href="index.html" class="active">Мониторинг</a>  
+    <a href="donate.html">Донат</a>  
+    <a href="forum.html">Форум</a>  
+  </nav>  
+</header>  
+  
+<main>  
+  
+  <section class="panel">  
+    <div class="eyebrow">// статус сервера</div>  
+    <h1>Онлайн в реальном времени</h1>  
+  
+  
+    <hr class="rule">  
+  
+    <!-- Баннер MyArena 560x95 — реальные данные сервера -->  
+    <a href="http://www.myarena.ru/game-monitoring.html?game=121452" target="_blank" rel="noopener">  
+      <img  
+        id="myarena-banner"  
+        src="https://img.myarena.ru/121452/560.png"  
+        alt="Мониторинг сервера REVOLUTION — игроки и карта"  
+        style="width:100%;max-width:560px;border:1px solid var(--line);border-radius:2px;display:block;">  
+    </a>  
+  
+  
+  
+    <div style="margin-top:18px;">  
+      <a class="btn" data-copy-ip="45.136.205.146:27015" href="javascript:void(0)">Скопировать IP</a>  
+    </div>  
+  </section>  
+  
+  
+  
+  <section class="panel">  
+    <h2>Статистика игроков за неделю</h2>  
+    <a href="https://www.myarena.ru/monitoring.php?game=121452" target="_blank" rel="noopener">  
+      <img  
+        src="https://img.myarena.ru/121452/players_week_EB900A_FA9638_EBEAEA_000000_000000_000000_CFCFCF_0_1.png"  
+        alt="Статистика игроков за неделю"  
+        style="width:100%;max-width:100%;border:1px solid var(--line);border-radius:2px;display:block;filter:sepia(0.2) hue-rotate(5deg) saturate(1.3) brightness(0.95);">  
+    </a>  
+  </section>  
+  
+  <section class="panel">  
+    <h2>Как подключиться</h2>  
+    <ol style="color:var(--text-dim);padding-left:18px;">  
+      <li>Откройте консоль в игре (клавиша <span class="mono">~</span>).</li>  
+      <li>Введите команду: <span class="mono" style="color:var(--amber);">connect 45.136.205.146:27015</span></li>  
+      <li>Нажмите Enter — готово, вы на сервере REVOLUTION.</li>  
+    </ol>  
+  </section>  
+  
+</main>  
+  
+<footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · МОНИТОРИНГ ОБНОВЛЯЕТСЯ АВТОМАТИЧЕСКИ</footer>  
+  
+<script src="script.js"></script>  
+<script>  
+  if (!localStorage.getItem('rev_auth')) location.href = 'login.html';  
+  
+  // Обновляем баннер каждую минуту  
+  setInterval(() => {  
+    const img = document.getElementById('myarena-banner');  
+    if (img) img.src = 'https://img.myarena.ru/121452/560.png?t=' + Date.now();  
+  }, 60000);  
+</script>  
+</body>  
+</html>  
