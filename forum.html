@@ -1,214 +1,220 @@
-<!DOCTYPE html>  
-<html lang="ru">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>[CSv34] REVOLUTION — форум</title>  
-<link rel="stylesheet" href="style.css">  
-</head>  
-<body>  
-
-<div class="hud-bar">  
-  <div><span class="dot"></span>СЕРВЕР В СЕТИ</div>  
-  <div class="hud-ip" data-copy-ip="45.136.205.146:27015">45.136.205.146:27015 ⧉</div>  
-</div>  
-
-<header class="site">  
-  <div class="brand">  
-    [CSv34] <span>REVOLUTION</span>  
-    <small>COUNTER-STRIKE · SOURCE ENGINE V34</small>  
-  </div>  
-  <nav class="tabs">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CSv34] REVOLUTION — форум</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="hud-bar">
+<div><span class="dot"></span>СЕРВЕР В СЕТИ</div>
+<div class="hud-ip" data-copy-ip="45.136.205.146:27015">45.136.205.146:27015 ⧉</div>
+</div>
+<header class="site">
+<div class="brand">
+[CSv34] <span>REVOLUTION</span>
+<small>COUNTER-STRIKE · SOURCE ENGINE V34</small>
+</div>
+<nav class="tabs">
 <a href="index.html">Мониторинг</a>
 <a href="donate.html">Донат</a>
 <a href="forum.html" class="active">Форум</a>
-<a href="rules.html">Правила</a>
-</nav>  
-</header>  
+</nav>
+</header>
+<main>
+<section class="panel">
+<div class="eyebrow">// сообщество</div>
+<h1>Форум REVOLUTION</h1>
+<p>Раздел для заявок на разбан и размут, общий чат игроков и поддержка по донату.</p>
+<div id="user-info" style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);"></div>
+<div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;">
+<span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;box-shadow:0 0 6px var(--green);vertical-align:middle;"></span>
+На сайте сейчас: <span id="online-count" style="color:var(--amber);">...</span> чел.
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+<a class="btn solid" href="https://vk.me/join/Od2ggXZGyRU1Y89ZhkTa/ZfRwgLoRf3Fcl4=" target="_blank" rel="noopener"
+style="background:#0077ff;border-color:#0077ff;color:#fff;">ВКонтакте</a>
+<a class="btn solid" href="https://t.me/revcssv34" target="_blank" rel="noopener"
+style="background:#2aabee;border-color:#2aabee;color:#fff;">Telegram</a>
+</div>
+</section>
 
-<main>  
+<section style="margin-top:18px;">
+<div class="panel">
+<h2>Заявка на разбан</h2>
+<p style="margin-bottom:14px;">Опишите дату бана и причину, по которой считаете бан несправедливым.</p>
+<div id="unban-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
+<textarea id="unban-text" placeholder="Дата бана и причина..."
+style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+<button class="btn solid" id="unban-send" style="margin-top:12px;">Отправить заявку</button>
+<div id="unban-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>
+</div>
 
-  <section class="panel">  
-    <div class="eyebrow">// сообщество</div>  
-    <h1>Форум REVOLUTION</h1>  
-    <p>Раздел для заявок на разбан и размут, общий чат игроков и поддержка по донату.</p>  
-    <div id="user-info" style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);"></div>  
-    <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;">  
-      <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;box-shadow:0 0 6px var(--green);vertical-align:middle;"></span>  
-      На сайте сейчас: <span id="online-count" style="color:var(--amber);">...</span>  
-    </div>  
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">  
-      <a class="btn solid" href="https://vk.me/join/Od2ggXZGyRU1Y89ZhkTa/ZfRwgLoRf3Fcl4=" target="_blank" rel="noopener"  
-        style="background:#0077ff;border-color:#0077ff;color:#fff;">ВКонтакте</a>  
-      <a class="btn solid" href="https://t.me/revcssv34" target="_blank" rel="noopener"  
-        style="background:#2aabee;border-color:#2aabee;color:#fff;">Telegram</a>  
-    </div>  
-  </section>  
+<div class="panel">
+<h2>Заявка на размут</h2>
+<p style="margin-bottom:14px;">Опишите дату мута и причину.</p>
+<div id="unmute-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
+<textarea id="unmute-text" placeholder="Дата мута и причина..."
+style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+<button class="btn solid" id="unmute-send" style="margin-top:12px;">Отправить заявку</button>
+<div id="unmute-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>
+</div>
 
-  <section style="margin-top:18px;">  
+<div class="panel">
+<h2>Жалобы на администрацию</h2>
+<p style="margin-bottom:14px;">Опишите ситуацию — на кого из администрации жалоба, что произошло и когда.</p>
+<div id="admin-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
+<textarea id="admin-text" placeholder="Ник администратора, дата, описание ситуации..."
+style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+<button class="btn solid" id="admin-send" style="margin-top:12px;">Отправить жалобу</button>
+<div id="admin-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Жалоба отправлена! Старший администратор рассмотрит её в ближайшее время.</div>
+</div>
 
-    <div class="panel">  
-      <h2>Заявка на разбан</h2>  
-      <p style="margin-bottom:14px;">Опишите дату бана и причину, по которой считаете бан несправедливым.</p>  
-      <div id="unban-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>  
-      <textarea id="unban-text" placeholder="Дата бана и причина..."  
-        style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>  
-      <button class="btn solid" id="unban-send" style="margin-top:12px;">Отправить заявку</button>  
-      <div id="unban-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>  
-    </div>  
+<div class="panel">
+<h2>Поддержка по донату</h2>
+<p style="margin-bottom:14px;">Оплатили услугу, но она не была активирована? Опишите проблему.</p>
+<div id="donate-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>
+<textarea id="donate-text" placeholder="Какую услугу оплатили, сумма, дата оплаты..."
+style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+<button class="btn solid" id="donate-send" style="margin-top:12px;">Отправить заявку</button>
+<div id="donate-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация свяжется с вами в ближайшее время.</div>
+</div>
 
-    <div class="panel">  
-      <h2>Заявка на размут</h2>  
-      <p style="margin-bottom:14px;">Опишите дату мута и причину.</p>  
-      <div id="unmute-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>  
-      <textarea id="unmute-text" placeholder="Дата мута и причина..."  
-        style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>  
-      <button class="btn solid" id="unmute-send" style="margin-top:12px;">Отправить заявку</button>  
-      <div id="unmute-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация рассмотрит её в ближайшее время.</div>  
-    </div>  
+<div class="panel">
+<h2>Чат</h2>
+<div id="chat-box" style="background:var(--panel-2);border:1px solid var(--line);border-radius:2px;min-height:160px;max-height:300px;overflow-y:auto;padding:12px;font-size:13px;color:var(--text-dim);"></div>
+<div style="display:flex;gap:8px;margin-top:10px;">
+<input id="chat-input" type="text" placeholder="Сообщение..."
+style="flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;">
+<button class="btn solid" id="chat-send">Отправить</button>
+</div>
+</div>
+</section>
+</main>
+<footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · ФОРУМ СООБЩЕСТВА</footer>
+<script src="script.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    <div class="panel">  
-      <h2>Жалобы на администрацию</h2>  
-      <p style="margin-bottom:14px;">Опишите ситуацию — на кого из администрации жалоба, что произошло и когда.</p>  
-      <div id="admin-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>  
-      <textarea id="admin-text" placeholder="Ник администратора, дата, описание ситуации..."  
-        style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>  
-      <button class="btn solid" id="admin-send" style="margin-top:12px;">Отправить жалобу</button>  
-      <div id="admin-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Жалоба отправлена! Старший администратор рассмотрит её в ближайшее время.</div>  
-    </div>  
+if (!localStorage.getItem('rev_auth')) location.href = 'login.html';
 
-    <div class="panel">  
-      <h2>Поддержка по донату</h2>  
-      <p style="margin-bottom:14px;">Оплатили услугу, но она не была активирована? Опишите проблему.</p>  
-      <div id="donate-user" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-bottom:10px;"></div>  
-      <textarea id="donate-text" placeholder="Какую услугу оплатили, сумма, дата оплаты..."  
-        style="width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>  
-      <button class="btn solid" id="donate-send" style="margin-top:12px;">Отправить заявку</button>  
-      <div id="donate-status" style="margin-top:10px;font-size:13px;color:var(--green);display:none;">✓ Заявка отправлена! Администрация свяжется с вами в ближайшее время.</div>  
-    </div>  
+const MY_NICK = localStorage.getItem('rev_nick') || 'Аноним';
+const MY_STEAM = localStorage.getItem('rev_steam') || '';
 
-    <div class="panel">  
-      <h2>Чат</h2>  
-      <div id="chat-box" style="background:var(--panel-2);border:1px solid var(--line);border-radius:2px;min-height:160px;max-height:300px;overflow-y:auto;padding:12px;font-size:13px;color:var(--text-dim);"></div>  
-      <div style="display:flex;gap:8px;margin-top:10px;">  
-        <input id="chat-input" type="text" placeholder="Сообщение..."  
-          style="flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;color:var(--text);padding:10px;font-family:'Inter',sans-serif;">  
-        <button class="btn solid" id="chat-send">Отправить</button>  
-      </div>  
-    </div>  
+document.getElementById('user-info').textContent = `Вы вошли как: ${MY_NICK} · ${MY_STEAM}`;
+document.getElementById('unban-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
+document.getElementById('unmute-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
+document.getElementById('donate-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
+document.getElementById('admin-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;
 
-  </section>  
+const app = initializeApp({
+apiKey: "AIzaSyCxkwo9pgBoiZGFdR2gMQqfqPhlPFp4_5Y",
+authDomain: "csv34-revolution-6127b.firebaseapp.com",
+databaseURL: "https://csv34-revolution-6127b-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "csv34-revolution-6127b",
+storageBucket: "csv34-revolution-6127b.firebasestorage.app",
+messagingSenderId: "886122429926",
+appId: "1:886122429926:web:56840c0a678c10c003ea27"
+});
 
-</main>  
+const db = getDatabase(app);
 
-<footer>[CSV34] REVOLUTION · 45.136.205.146:27015 · ФОРУМ СООБЩЕСТВА</footer>  
+// ==== TELEGRAM УВЕДОМЛЕНИЯ ====
+// Замените на свои значения из BotFather и getUpdates
+const TG_BOT_TOKEN = '8748498534:AAH6w7Cm9XxA2UV0Fr--4VU0pVS0qpxwg84';
+const TG_CHAT_ID = 'ВАШ_CHAT_ID';
 
-<script src="script.js"></script>  
+function notifyTelegram(title, text) {
+  const message = `🔔 ${title}\n\nНик: ${MY_NICK}\nSteamID: ${MY_STEAM}\n\n${text}`;
+  fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ chat_id: TG_CHAT_ID, text: message })
+  }).catch(err => console.error('Telegram notify error:', err));
+}
 
-<script type="module">  
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";  
-  import { getDatabase, ref, push, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";  
+// СЧЁТЧИК ОНЛАЙНА
+const myId = 'u_' + Math.random().toString(36).slice(2);
+const presenceRef = ref(db, 'presence/' + myId);
+set(presenceRef, { nick: MY_NICK, t: Date.now() });
+onDisconnect(presenceRef).remove();
 
-  if (!localStorage.getItem('rev_auth')) location.href = 'login.html';  
+onValue(ref(db, 'presence'), snap => {
+document.getElementById('online-count').textContent = snap.exists() ? Object.keys(snap.val()).length : 0;
+});
 
-  const MY_NICK  = localStorage.getItem('rev_nick')  || 'Аноним';  
-  const MY_STEAM = localStorage.getItem('rev_steam') || '';  
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  document.getElementById('user-info').textContent  = `Вы вошли как: ${MY_NICK} · ${MY_STEAM}`;  
-  document.getElementById('unban-user').textContent  = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
-  document.getElementById('unmute-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
-  document.getElementById('donate-user').textContent = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
-  document.getElementById('admin-user').textContent  = `Ник: ${MY_NICK} · SteamID: ${MY_STEAM}`;  
+// ЧАТ
+const chatBox = document.getElementById('chat-box');
+onValue(ref(db,'chat'), snap => {
+chatBox.innerHTML = '';
+const data = snap.val();
+if(!data){ chatBox.innerHTML='<span style="color:var(--text-dim)">Сообщений пока нет.</span>'; return; }
+Object.values(data).slice(-60).forEach(m => {
+const t = m.time ? new Date(m.time).toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'}) : '';
+const row = document.createElement('div');
+row.style.marginBottom='6px';
+row.innerHTML=`<span style="color:var(--text-dim);font-size:11px;">[${t}]</span> <span style="color:var(--amber);font-weight:600;">${esc(m.nick)}</span> <span style="color:var(--text-dim);font-size:11px;">(${esc(m.steamid)})</span>: ${esc(m.text)}`;
+chatBox.appendChild(row);
+});
+chatBox.scrollTop = chatBox.scrollHeight;
+});
 
-  const app = initializeApp({  
-    apiKey: "AIzaSyCxkwo9pgBoiZGFdR2gMQqfqPhlPFp4_5Y",  
-    authDomain: "csv34-revolution-6127b.firebaseapp.com",  
-    databaseURL: "https://csv34-revolution-6127b-default-rtdb.europe-west1.firebasedatabase.app",  
-    projectId: "csv34-revolution-6127b",  
-    storageBucket: "csv34-revolution-6127b.firebasestorage.app",  
-    messagingSenderId: "886122429926",  
-    appId: "1:886122429926:web:56840c0a678c10c003ea27"  
-  });  
-  const db = getDatabase(app);  
+function sendChat(){
+const text = document.getElementById('chat-input').value.trim();
+if(!text) return;
+push(ref(db,'chat'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
+document.getElementById('chat-input').value='';
+}
+document.getElementById('chat-send').addEventListener('click', sendChat);
+document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });
 
-  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }  
+// РАЗБАН
+document.getElementById('unban-send').addEventListener('click', ()=>{
+const text = document.getElementById('unban-text').value.trim();
+if(!text){ alert('Заполните поле'); return; }
+push(ref(db,'unban'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
+notifyTelegram('Заявка на РАЗБАН', text);
+document.getElementById('unban-text').value='';
+const s=document.getElementById('unban-status');
+s.style.display='block'; setTimeout(()=>s.style.display='none',4000);
+});
 
-  // СЧЁТЧИК ОНЛАЙНА — список ников вместо числа  
-  const myId = 'u_' + Math.random().toString(36).slice(2);  
-  const presenceRef = ref(db, 'presence/' + myId);  
-  set(presenceRef, { nick: MY_NICK, t: Date.now() });  
-  onDisconnect(presenceRef).remove();  
-  onValue(ref(db, 'presence'), snap => {  
-    const el = document.getElementById('online-count');  
-    if (!snap.exists()) { el.textContent = 'никого нет'; return; }  
-    const nicks = [...new Set(Object.values(snap.val()).map(u => u.nick))].map(esc);  
-    el.textContent = nicks.join(', ');  
-  });  
+// РАЗМУТ
+document.getElementById('unmute-send').addEventListener('click', ()=>{
+const text = document.getElementById('unmute-text').value.trim();
+if(!text){ alert('Заполните поле'); return; }
+push(ref(db,'unmute'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
+notifyTelegram('Заявка на РАЗМУТ', text);
+document.getElementById('unmute-text').value='';
+const s=document.getElementById('unmute-status');
+s.style.display='block'; setTimeout(()=>s.style.display='none',4000);
+});
 
-  // ЧАТ  
-  const chatBox = document.getElementById('chat-box');  
-  onValue(ref(db,'chat'), snap => {  
-    chatBox.innerHTML = '';  
-    const data = snap.val();  
-    if(!data){ chatBox.innerHTML='<span style="color:var(--text-dim)">Сообщений пока нет.</span>'; return; }  
-    Object.values(data).slice(-60).forEach(m => {  
-      const t = m.time ? new Date(m.time).toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'}) : '';  
-      const row = document.createElement('div');  
-      row.style.marginBottom='6px';  
-      row.innerHTML=`<span style="color:var(--text-dim);font-size:11px;">[${t}]</span> <span style="color:var(--amber);font-weight:600;">${esc(m.nick)}</span> <span style="color:var(--text-dim);font-size:11px;">(${esc(m.steamid)})</span>: ${esc(m.text)}`;  
-      chatBox.appendChild(row);  
-    });  
-    chatBox.scrollTop = chatBox.scrollHeight;  
-  });  
+// ПОДДЕРЖКА ПО ДОНАТУ
+document.getElementById('donate-send').addEventListener('click', ()=>{
+const text = document.getElementById('donate-text').value.trim();
+if(!text){ alert('Заполните поле'); return; }
+push(ref(db,'donate_support'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
+notifyTelegram('Заявка: Поддержка по донату', text);
+document.getElementById('donate-text').value='';
+const s=document.getElementById('donate-status');
+s.style.display='block'; setTimeout(()=>s.style.display='none',4000);
+});
 
-  function sendChat(){  
-    const text = document.getElementById('chat-input').value.trim();  
-    if(!text) return;  
-    push(ref(db,'chat'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });  
-    document.getElementById('chat-input').value='';  
-  }  
-  document.getElementById('chat-send').addEventListener('click', sendChat);  
-  document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });  
-
-  // РАЗБАН  
-  document.getElementById('unban-send').addEventListener('click', ()=>{  
-    const text = document.getElementById('unban-text').value.trim();  
-    if(!text){ alert('Заполните поле'); return; }  
-    push(ref(db,'unban'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });  
-    document.getElementById('unban-text').value='';  
-    const s=document.getElementById('unban-status');  
-    s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
-  });  
-
-  // РАЗМУТ  
-  document.getElementById('unmute-send').addEventListener('click', ()=>{  
-    const text = document.getElementById('unmute-text').value.trim();  
-    if(!text){ alert('Заполните поле'); return; }  
-    push(ref(db,'unmute'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });  
-    document.getElementById('unmute-text').value='';  
-    const s=document.getElementById('unmute-status');  
-    s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
-  });  
-
-  // ПОДДЕРЖКА ПО ДОНАТУ  
-  document.getElementById('donate-send').addEventListener('click', ()=>{  
-    const text = document.getElementById('donate-text').value.trim();  
-    if(!text){ alert('Заполните поле'); return; }  
-    push(ref(db,'donate_support'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });  
-    document.getElementById('donate-text').value='';  
-    const s=document.getElementById('donate-status');  
-    s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
-  });  
-
-  // ЖАЛОБЫ НА АДМИНИСТРАЦИЮ  
-  document.getElementById('admin-send').addEventListener('click', ()=>{  
-    const text = document.getElementById('admin-text').value.trim();  
-    if(!text){ alert('Заполните поле'); return; }  
-    push(ref(db,'admin_complaints'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });  
-    document.getElementById('admin-text').value='';  
-    const s=document.getElementById('admin-status');  
-    s.style.display='block'; setTimeout(()=>s.style.display='none',4000);  
-  });  
-</script>  
-</body>  
-</html>  
+// ЖАЛОБЫ НА АДМИНИСТРАЦИЮ
+document.getElementById('admin-send').addEventListener('click', ()=>{
+const text = document.getElementById('admin-text').value.trim();
+if(!text){ alert('Заполните поле'); return; }
+push(ref(db,'admin_complaints'),{ nick: MY_NICK, steamid: MY_STEAM, text, time: Date.now() });
+notifyTelegram('ЖАЛОБА на администратора', text);
+document.getElementById('admin-text').value='';
+const s=document.getElementById('admin-status');
+s.style.display='block'; setTimeout(()=>s.style.display='none',4000);
+});
+</script>
+</body>
+</html>
