@@ -71,7 +71,7 @@
   });
   const db = getDatabase(app);
 
-  if (sessionStorage.getItem('rev_auth')) location.href = 'index.html';
+  if (localStorage.getItem('rev_auth')) location.href = 'index.html';
 
   const btn   = document.getElementById('login-btn');
   const err   = document.getElementById('err-msg');
@@ -89,9 +89,9 @@
 
     await push(ref(db, 'users'), { nick: n, steamid: s, time: Date.now() });
 
-    sessionStorage.setItem('rev_auth', '1');
-    sessionStorage.setItem('rev_nick', n);
-    sessionStorage.setItem('rev_steam', s);
+    localStorage.setItem('rev_auth', '1');
+    localStorage.setItem('rev_nick', n);
+    localStorage.setItem('rev_steam', s);
 
     location.href = 'index.html';
   });
